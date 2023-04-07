@@ -1,0 +1,3 @@
+# Environment specific vars
+inventory
+roles/proxmox/vars/main.yaml

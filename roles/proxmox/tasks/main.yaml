@@ -1,0 +1,30 @@
+---
+# Build and manage VMs using the Proxmox API
+# File: roles/proxmox/tasks/main.yaml
+
+- name: 'Get current Proxmox version'
+  ansible.builtin.uri:
+    url: '{{ proxmox_api_url }}/api2/json/version'
+    method: 'GET'
+    headers:
+      Authorization: '{{ proxmox_api_auth }}'
+    validate_certs: false
+  register: version
+
+- name: 'Display current Proxmox version'
+  ansible.builtin.debug:
+    var: version.json.data.version
+    verbosity: 0
+
+- name: 'Clone new VM from template'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    clone: '{{ proxmox_template_id[template_type] }}'
+    node: '{{ proxmox_node }}'
+    newid: '{{ vm_newid}}'
+    name: '{{ vm_hostname }}'
+    description: 'Created by Ansible on {{ ansible_date_time.iso8601 }}'
+    timeout: 120
