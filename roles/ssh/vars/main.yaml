@@ -1,0 +1,15 @@
+---
+# Build and manage VMs using the Proxmox API
+# File: roles/proxmox/vars/main.yaml
+
+proxmox_api_host: '192.168.7.25'
+proxmox_api_url: 'https://{{ proxmox_api_host }}:8006'
+proxmox_api_user: 'apiansible@pve'
+proxmox_api_id: 'apitoken'
+proxmox_api_secret: '038c212f-eb1f-4d2f-926d-0010df38e2f8'
+proxmox_api_auth: 'PVEAPIToken={{ proxmox_api_user }}!{{ proxmox_api_id }}={{ proxmox_api_secret }}'
+proxmox_node: 'vm01'
+proxmox_template_id:
+  fedora37: 'plvm-fedora37-template'
+  rhel9: 'plvm-rhel9-template'
+  windows11: 'plvm-windows11-template'

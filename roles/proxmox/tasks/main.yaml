@@ -10,13 +10,18 @@
       Authorization: '{{ proxmox_api_auth }}'
     validate_certs: false
   register: version
+  tags:
+    - proxmox_version
 
 - name: 'Display current Proxmox version'
   ansible.builtin.debug:
     var: version.json.data.version
     verbosity: 0
+  tags:
+    - proxmox_version
 
-- name: 'Clone new VM from template'
+# Loop through this in the future
+- name: 'Create new VM from template: {{ vm_hostname }}'
   community.general.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
@@ -24,7 +29,62 @@
     api_token_secret: '{{ proxmox_api_secret }}'
     clone: '{{ proxmox_template_id[template_type] }}'
     node: '{{ proxmox_node }}'
-    newid: '{{ vm_newid}}'
+    newid: '{{ vm_newid }}'
     name: '{{ vm_hostname }}'
     description: 'Created by Ansible on {{ ansible_date_time.iso8601 }}'
     timeout: 120
+  tags:
+    - new_vm
+
+- name: 'Power on new VM: {{ vm_hostname }}'
+  community.general.proxmox_kvm:
+    adsasd
+  tags:
+    - new_vm
+
+# Need to run on remote host not local host
+# - name: 'Set hostname to {{ vm_hostname }}'
+#   ansible.builtin.hostname:
+#     name: '{{ vm_hostname }}'
+#   tags:
+#     - new_vm
+# 
+# 
+# 
+# 
+# 
+# ---
+#  - hosts: all
+#    vars:
+#      - devops_password: 'abcddefsfdfdfdfdfdfdfdfdfdfd'
+#    gather_facts: no
+#    remote_user: ubuntu
+#    become: truetasks:- name: Add a new user named devops
+#      user:
+#           name: devops
+#           shell: /bin/bash
+#           password: "{{ devops_password }}"- name: Add devops user to the sudoers
+#      copy:
+#           dest: "/etc/sudoers.d/devops"
+#           content: "devops  ALL=(ALL)  NOPASSWD: ALL"- name: Deploy SSH Key
+#      authorized_key: user=devops
+#                      key="{{ lookup('file', '/home/devops/.ssh/id_rsa.pub') }}"
+#                      state=present- name: Disable Password Authentication
+#      lineinfile:
+#            dest=/etc/ssh/sshd_config
+#            regexp='^PasswordAuthentication'
+#            line="PasswordAuthentication no"
+#            state=present
+#            backup=yes- name: Disable Root Login
+#      lineinfile:
+#            dest=/etc/ssh/sshd_config
+#            regexp='^PermitRootLogin'
+#            line="PermitRootLogin no"
+#            state=present
+#            backup=yes
+#      notify:
+#        - restart sshhandlers:
+#    - name: restart ssh
+#      service:
+#        name=sshd
+#        state=restarted

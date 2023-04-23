@@ -1,0 +1,13 @@
+---
+# Build and manage VMs using the Proxmox API
+# File: roles/okd/tasks/main.yaml
+
+- name: 'Include OKD load balancer tasks'
+  ansible.builtin.include_tasks: load-balancer.yaml
+  tags:
+    - okd_install
+
+- name: 'Include OKD httpd server tasks'
+  ansible.builtin.include_tasks: httpd.yaml
+  tags:
+    - okd_install

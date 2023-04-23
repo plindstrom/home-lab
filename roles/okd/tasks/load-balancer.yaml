@@ -1,0 +1,25 @@
+---
+# Build and manage VMs using the Proxmox API
+# File: roles/okd/tasks/load-balancer.yaml
+
+- name: 'Create haproxy group'
+  ansible.builtin.group:
+    name: 'haproxygrp'
+    state: 'present'
+  tags:
+    - okd_install
+
+- name: 'Create haproxy user'
+  ansible.builtin.user:
+    name: 'haproxy'
+    group: 'haproxygrp'
+    state: 'present'
+  tags:
+    - okd_install
+
+- name: 'Install HAProxy'
+  ansible.builtin.dnf:
+    name: 'haproxy'
+    state: 'latest'
+  tags:
+    - okd_install

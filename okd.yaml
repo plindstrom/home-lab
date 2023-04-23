@@ -1,0 +1,9 @@
+---
+# Build and configure an OKD cluster
+# File: okd.yaml
+# Usage: ansible-playbook -i inventory --limit plvm-okdlb01 --tags dnf_install_lb okd.yaml
+
+- hosts: all
+  become: yes
+  roles:
+    - okd

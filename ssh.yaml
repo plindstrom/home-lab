@@ -1,0 +1,10 @@
+---
+# Setup SSH keys
+# File: ssh.yaml
+# Usage: ansible-playbook -i inventory --limit plvm-okdlb01 --tags ssh_keys ssh.yaml
+
+- hosts: all
+  become: yes
+  become_user: lab
+  roles:
+    - ssh

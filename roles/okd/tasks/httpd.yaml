@@ -1,0 +1,40 @@
+---
+# Build and manage VMs using the Proxmox API
+# File: roles/okd/tasks/httpd.yaml
+
+- name: 'Create httpd group'
+  ansible.builtin.group:
+    name: 'httpdgrp'
+    state: 'present'
+  tags:
+    - okd_install
+
+- name: 'Create httpd user'
+  ansible.builtin.user:
+    name: 'httpd'
+    group: 'httpdgrp'
+    state: 'present'
+  tags:
+    - okd_install
+
+- name: 'Install httpd server'
+  ansible.builtin.dnf:
+    name: 'httpd'
+    state: 'latest'
+  tags:
+    - okd_install
+
+- name: 'Copy httpd.conf file'
+  ansible.builtin.template:
+    src: 'templates/httpd.conf.j2'
+    dest: '/etc/httpd/conf/httpd.conf'
+  tags:
+    - okd_install
+
+- name: 'Start httpd server'
+  ansible.builtin.systemd:
+    name: 'httpd'
+    enabled: true
+    state: 'started'
+  tags:
+    - okd_install
