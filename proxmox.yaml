@@ -1,7 +1,5 @@
 ---
 # Build and manage VMs using the Proxmox API
-# File: proxmox.yaml
-# Usage: ansible-playbook -i inventory --extra-vars "template_type=type vm_hostname=hostname vm_newid=id" proxmox.yaml
 
 - hosts: localhost
   roles:

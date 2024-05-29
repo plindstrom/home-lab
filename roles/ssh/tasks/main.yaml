@@ -1,6 +1,5 @@
 ---
 # Setup SSH keys
-# File: roles/ssh/tasks/main.yaml
 
 - name: 'Run ssh-keygen'
   ansible.builtin.shell: 'ssh-keygen -q -N "" -C "Ansible SSH key" -f ~/.ssh/id_rsa'
@@ -16,7 +15,7 @@
     flat: true
   tags:
     - ssh_keys
-    
+
 - name: 'Add authorized key'
   ansible.posix.authorized_key:
     user: 'ansible'
