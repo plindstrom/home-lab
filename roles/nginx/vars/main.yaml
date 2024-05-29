@@ -1,0 +1,10 @@
+---
+# Build and manage VMs using the Proxmox API
+
+proxmox_api_host: '192.168.7.25'
+proxmox_api_url: 'https://{{ proxmox_api_host }}:8006'
+proxmox_api_user: 'ansible@pve'
+proxmox_api_id: 'ansible'
+proxmox_api_secret: 'dc3af1b9-5400-4b67-81d2-37965c9c2590'
+proxmox_api_auth: 'PVEAPIToken={{ proxmox_api_user }}!{{ proxmox_api_id }}={{ proxmox_api_secret }}'
+proxmox_node: 'plvm01'

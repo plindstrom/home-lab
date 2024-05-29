@@ -1,0 +1,9 @@
+automation:
+  hosts:
+    ansible01:
+      ansible_host: localhost
+
+web:
+  hosts:
+    nginx01:
+      ansible_host: 192.168.10.101

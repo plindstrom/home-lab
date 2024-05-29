@@ -1,0 +1,17 @@
+---
+# Build and manage VMs using the Proxmox API
+
+- block:
+  - name: 'Install Nginx'
+    ansible.builtin.dnf:
+      name: 'nginx'
+      state: 'latest'
+      update_cache: true
+
+  - name: 'Enable Nginx service'
+    ansible.builtin.systemd_service:
+      name: 'nginx.service'
+      enabled: true
+      daemon_reload: true
+  tags:
+    - nginx_install

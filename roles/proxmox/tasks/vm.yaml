@@ -1,0 +1,30 @@
+---
+# Build and manage VMs using the Proxmox API
+
+- name: 'Create new VM from template: {{ vm_hostname }}'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    clone: '{{ proxmox_template_id }}'
+    node: '{{ proxmox_node }}'
+    newid: '{{ vm_newid }}'
+    name: '{{ vm_hostname }}'
+    description: 'Created by Ansible on {{ ansible_date_time.iso8601 }}'
+    timeout: 120
+  tags:
+    - proxmox_new_vm
+
+- name: 'Power on new VM: {{ vm_hostname }}'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'started'
+  tags:
+    - proxmox_new_vm
+    - proxmox_start_vm
