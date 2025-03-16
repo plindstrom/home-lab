@@ -7,3 +7,4 @@ web:
   hosts:
     nginx01:
       ansible_host: 192.168.10.101
+      ansible_ssh_private_key_file: ~/.ssh/nginx01

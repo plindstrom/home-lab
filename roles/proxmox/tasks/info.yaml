@@ -1,5 +1,6 @@
 ---
-# Get cluster information using the Proxmox API
+# Get Proxmox information using the Proxmox API
+
 
 - block:
   - name: 'Get current Proxmox version'
@@ -15,5 +16,4 @@
     ansible.builtin.debug:
       var: version.json.data.version
       verbosity: 0
-  tags:
-    - proxmox_version
+  tags: [ proxmox_version ]

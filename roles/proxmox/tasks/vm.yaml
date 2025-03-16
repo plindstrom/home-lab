@@ -1,6 +1,7 @@
 ---
 # Build and manage VMs using the Proxmox API
 
+
 - name: 'Create new VM from template: {{ vm_hostname }}'
   community.general.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
@@ -13,8 +14,7 @@
     name: '{{ vm_hostname }}'
     description: 'Created by Ansible on {{ ansible_date_time.iso8601 }}'
     timeout: 120
-  tags:
-    - proxmox_new_vm
+  tags: [ proxmox_new_vm ]
 
 - name: 'Power on new VM: {{ vm_hostname }}'
   community.general.proxmox_kvm:
@@ -25,6 +25,4 @@
     name: '{{ vm_hostname }}'
     node: '{{ proxmox_node }}'
     state: 'started'
-  tags:
-    - proxmox_new_vm
-    - proxmox_start_vm
+  tags: [ proxmox_new_vm, proxmox_start_vm ]
