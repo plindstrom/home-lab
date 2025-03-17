@@ -16,7 +16,24 @@
     timeout: 120
   tags: [ proxmox_new_vm ]
 
-- name: 'Power on new VM: {{ vm_hostname }}'
+- name: 'Wait 20 seconds for Proxmox to finish creating the new VM'
+  ansible.builtin.pause:
+    seconds: 20
+  tags: [ proxmox_new_vm ]
+
+- name: 'Get VM status: {{ vm_hostname }}'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'status'
+  register: vm_results
+  tags: [ proxmox_new_vm, proxmox_start_vm, proxmox_stop_vm ]
+
+- name: 'Power on VM: {{ vm_hostname }}'
   community.general.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
@@ -25,4 +42,17 @@
     name: '{{ vm_hostname }}'
     node: '{{ proxmox_node }}'
     state: 'started'
+  when: 'vm_results.status == "stopped"'
   tags: [ proxmox_new_vm, proxmox_start_vm ]
+
+- name: 'Power off VM: {{ vm_hostname }}'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'stopped'
+  when: 'vm_results.status == "started"'
+  tags: [ proxmox_stop_vm ]
