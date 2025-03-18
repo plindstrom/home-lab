@@ -1,0 +1,9 @@
+---
+# Setup baseline Linux configurations
+
+
+- name: "Set the hostname: {{ vm_hostname }}"
+  ansible.builtin.hostname:
+    name: "{{ vm_hostname }}"
+    use: systemd
+  tags: [ new_vm ]

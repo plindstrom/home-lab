@@ -1,0 +1,31 @@
+---
+# Setup baseline Linux configurations
+
+
+- name: Check for available updates
+  ansible.builtin.dnf:
+    list: updates
+  register: packages_avail
+  tags: [ new_vm, update ]
+
+- name: Packages to update
+  ansible.builtin.debug:
+    var: packages_avail.results
+    verbosity: 1
+  tags: [ new_vm, update ]
+
+# if updates available, install
+- block:
+  - name: Install updates
+    ansible.builtin.dnf:
+      name: "*"
+      state: latest
+      update_cache: true
+    register: packages_updated
+
+  - name: Packages updated
+    ansible.builtin.debug:
+      var: packages_updated.results
+  tags: [ new_vm, update ]
+
+# if updates installed, reboot

@@ -1,10 +1,9 @@
 ---
-# Setup baseline Linux configurations based on server type
+# Setup baseline Linux configurations
 # File: baseline-linux.yaml
 # Usage: ansible-playbook -i inventory --limit plvm-okdlb01 --tags baseline-linux baseline-linux.yaml
 
 - hosts: all
   become: yes
-  become_user: ansible
   roles:
     - baseline-linux
