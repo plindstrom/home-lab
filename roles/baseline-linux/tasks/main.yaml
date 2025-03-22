@@ -10,9 +10,14 @@
 - name: Include package update tasks
   ansible.builtin.include_tasks:
     file: update.yaml
-  tags: [ new_vm, update ]
+  tags: [ new_vm, update, upgrade ]
 
 - name: Include user configuration tasks
   ansible.builtin.include_tasks:
     file: user.yaml
   tags: [ new_vm, baseline ]
+
+- name: Include Fedora upgrade tasks
+  ansible.builtin.include_tasks:
+    file: upgrade.yaml
+  tags: [ upgrade ]

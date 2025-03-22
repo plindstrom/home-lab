@@ -15,7 +15,7 @@
       var: packages_avail.stdout_lines
       verbosity: 0
   when: ansible_os_family == 'RedHat'
-  tags: [ new_vm, update ]
+  tags: [ new_vm, update, upgrade ]
 
 - name: Install updates using dnf
   block:
@@ -32,10 +32,10 @@
   when:
     - packages_avail.rc == 100
     - ansible_os_family == 'RedHat'
-  tags: [ new_vm, update ]
+  tags: [ new_vm, update, upgrade ]
 
 - name: Reboot after installing updates
   ansible.builtin.reboot:
     msg: Rebooting after installing updates.
   when: packages_avail.rc == 100
-  tags: [ update ]
+  tags: [ update, upgrade ]

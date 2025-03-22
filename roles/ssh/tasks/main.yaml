@@ -1,6 +1,11 @@
 ---
 # Setup SSH keys
 
+# ssh-keygen -q -N "" -C "plvm-k8s01 ansible" -f ~/.ssh/plvm-k8s01
+# ll ~/.ssh/
+# ssh-copy-id -i ~/.ssh/plvm-k8s01.pub ansible@192.168.7.241
+
+
 - name: 'Run ssh-keygen'
   ansible.builtin.shell: 'ssh-keygen -q -N "" -C "Ansible SSH key" -f ~/.ssh/id_rsa'
   args:
