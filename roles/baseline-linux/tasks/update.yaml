@@ -2,20 +2,23 @@
 # Setup baseline Linux configurations
 
 
-- name: Check for available updates
-  ansible.builtin.dnf:
-    list: updates
-  register: packages_avail
+- name: Check for updates using dnf
+  block:
+  - name: Check for available updates
+    ansible.builtin.command:
+      cmd: dnf check-update
+    register: packages_avail
+    failed_when: packages_avail.rc not in [ 0, 100 ]
+
+  - name: Packages to update
+    ansible.builtin.debug:
+      var: packages_avail.stdout_lines
+      verbosity: 0
+  when: ansible_os_family == 'RedHat'
   tags: [ new_vm, update ]
 
-- name: Packages to update
-  ansible.builtin.debug:
-    var: packages_avail.results
-    verbosity: 1
-  tags: [ new_vm, update ]
-
-# if updates available, install
-- block:
+- name: Install updates using dnf
+  block:
   - name: Install updates
     ansible.builtin.dnf:
       name: "*"
@@ -26,6 +29,13 @@
   - name: Packages updated
     ansible.builtin.debug:
       var: packages_updated.results
+  when:
+    - packages_avail.rc == 100
+    - ansible_os_family == 'RedHat'
   tags: [ new_vm, update ]
 
-# if updates installed, reboot
+- name: Reboot after installing updates
+  ansible.builtin.reboot:
+    msg: Rebooting after installing updates.
+  when: packages_avail.rc == 100
+  tags: [ update ]

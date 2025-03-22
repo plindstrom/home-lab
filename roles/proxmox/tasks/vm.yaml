@@ -2,7 +2,7 @@
 # Build and manage VMs using the Proxmox API
 
 
-- name: "Create new VM from template: {{ vm_hostname }}"
+- name: Create new VM from template
   community.general.proxmox_kvm:
     api_host: "{{ proxmox_api_host }}"
     api_user: "{{ proxmox_api_user }}"
@@ -16,12 +16,12 @@
     timeout: 120
   tags: [ new_vm ]
 
-- name: Wait 20 seconds for Proxmox to finish creating the new VM
+- name: Pause 20 seconds to finish creating the VM
   ansible.builtin.pause:
     seconds: 20
   tags: [ new_vm ]
 
-- name: "Get VM status: {{ vm_hostname }}"
+- name: Get VM status
   community.general.proxmox_kvm:
     api_host: "{{ proxmox_api_host }}"
     api_user: "{{ proxmox_api_user }}"
@@ -33,7 +33,7 @@
   register: vm_results
   tags: [ new_vm, start_vm, stop_vm ]
 
-- name: "Power on VM: {{ vm_hostname }}"
+- name: Power on VM
   community.general.proxmox_kvm:
     api_host: "{{ proxmox_api_host }}"
     api_user: "{{ proxmox_api_user }}"
@@ -45,7 +45,7 @@
   when: vm_results.status == 'stopped'
   tags: [ new_vm, start_vm ]
 
-- name: "Power off VM: {{ vm_hostname }}"
+- name: Power off VM
   community.general.proxmox_kvm:
     api_host: "{{ proxmox_api_host }}"
     api_user: "{{ proxmox_api_user }}"

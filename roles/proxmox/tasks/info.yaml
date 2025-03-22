@@ -2,7 +2,8 @@
 # Get Proxmox information using the Proxmox API
 
 
-- block:
+- name: Display Proxmox version
+  block:
   - name: Get current Proxmox version
     ansible.builtin.uri:
       url: "{{ proxmox_api_url }}/api2/json/version"
@@ -12,7 +13,7 @@
       validate_certs: false
     register: version
 
-  - name: Display current Proxmox version
+  - name: Proxmox version
     ansible.builtin.debug:
       var: version.json.data.version
       verbosity: 0

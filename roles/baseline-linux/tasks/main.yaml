@@ -2,17 +2,17 @@
 # Setup baseline Linux configurations
 
 
-- name: Hostname configuration
+- name: Include hostname configuration tasks
   ansible.builtin.include_tasks:
     file: host.yaml
   tags: [ new_vm ]
 
-- name: Install updates
+- name: Include package update tasks
   ansible.builtin.include_tasks:
     file: update.yaml
   tags: [ new_vm, update ]
 
-- name: User configuration
+- name: Include user configuration tasks
   ansible.builtin.include_tasks:
     file: user.yaml
   tags: [ new_vm, baseline ]
