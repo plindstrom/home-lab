@@ -1,7 +1,15 @@
 ---
 # Setup baseline Linux configurations
-# File: baseline-linux.yaml
-# Usage: ansible-playbook -i inventory --limit plvm-okdlb01 --tags baseline-linux baseline-linux.yaml
+# File: set-baseline-server.yaml
+#
+# Tags:
+# - baseline - Apply server/user baselines
+# - new_vm   - Build a new VM (apply server/user baselines, update packages)
+# - update   - Update packages
+# - upgrade  - Update packages and upgrade (for Fedora only)
+#
+# Vars:
+# - vm_hostname - Host name for new VM
 
 - hosts: all
   become: yes

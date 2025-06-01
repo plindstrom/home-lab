@@ -17,4 +17,4 @@
     ansible.builtin.debug:
       var: version.json.data.version
       verbosity: 0
-  tags: [ proxmox_version ]
+  tags: [ pve_version ]

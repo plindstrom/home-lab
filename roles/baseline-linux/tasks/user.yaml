@@ -1,6 +1,6 @@
 ---
 # Setup baseline Linux configurations
-
+# File: roles/baseline-linux/tasks/user.yaml
 
 - name: Delete template user
   ansible.builtin.user:

@@ -1,0 +1,6 @@
+---
+# Setup baseline Linux configurations
+# File: roles/baseline-linux/defaults/main.yaml
+
+# Set the hostname
+vm_hostname: ""

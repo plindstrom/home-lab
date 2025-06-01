@@ -1,21 +1,21 @@
 ---
 # Setup baseline Linux configurations
+# File: roles/baseline-linux/tasks/main.yaml
 
-
-- name: Include hostname configuration tasks
+- name: Include baseline server configuration tasks
   ansible.builtin.include_tasks:
-    file: host.yaml
-  tags: [ new_vm ]
+    file: server.yaml
+  tags: [ new_vm, baseline ]
+
+- name: Include baseline user configuration tasks
+  ansible.builtin.include_tasks:
+    file: user.yaml
+  tags: [ new_vm, baseline ]
 
 - name: Include package update tasks
   ansible.builtin.include_tasks:
     file: update.yaml
   tags: [ new_vm, update, upgrade ]
-
-- name: Include user configuration tasks
-  ansible.builtin.include_tasks:
-    file: user.yaml
-  tags: [ new_vm, baseline ]
 
 - name: Include Fedora upgrade tasks
   ansible.builtin.include_tasks:

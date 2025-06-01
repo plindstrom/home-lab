@@ -1,9 +1,10 @@
 ---
 # Setup baseline Linux configurations
-
+# File: roles/baseline-linux/tasks/server.yaml
 
 - name: "Set the hostname: {{ vm_hostname }}"
   ansible.builtin.hostname:
     name: "{{ vm_hostname }}"
     use: systemd
+  when: vm_hostname != ''
   tags: [ new_vm ]

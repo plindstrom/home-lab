@@ -1,13 +1,13 @@
 ---
 # Manage Proxmox and build VMs using the Proxmox API
-
+# File: roles/proxmox/tasks/main.yaml
 
 - name: Include cluster information tasks
   ansible.builtin.include_tasks:
     file: info.yaml
-  tags: [ proxmox_version ]
+  tags: [ pve_version ]
 
 - name: Include VM management tasks
   ansible.builtin.include_tasks:
     file: vm.yaml
-  tags: [ proxmox_new_vm, proxmox_start_vm ]
+  tags: [ new_vm, stop_vm, start_vm ]

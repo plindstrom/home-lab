@@ -1,5 +1,17 @@
 ---
 # Build and manage VMs using the Proxmox API
+# File: proxmox.yaml
+#
+# Tags:
+# - pve_version - Display Proxmox version information
+# - new_vm      - Build a new VM (clone template, start VM)
+# - start_vm    - Start a VM
+# - stop_vm     - Stop a VM
+#
+# Vars:
+# - proxmox_template_id - Template ID to clone for new VM
+# - vm_newid            - New VM ID
+# - vm_hostname         - Host name for new VM or to stop/start
 
 - hosts: localhost
   roles:
