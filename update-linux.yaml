@@ -1,0 +1,12 @@
+---
+# Update and/or Upgrade Linux
+# File: update-linux.yaml
+#
+# Tags:
+# - update   - Update packages
+# - upgrade  - Update packages and upgrade (for Fedora only)
+
+- hosts: all
+  become: yes
+  roles:
+    - update-linux

@@ -1,0 +1,37 @@
+---
+# Update RedHat OS family
+# File: roles/update-linux/tasks/update-redhat.yaml
+
+- name: 'Check for updates using dnf'
+  ansible.builtin.command:
+    cmd: 'dnf check-update'
+  register: packages_avail
+  failed_when: packages_avail.rc not in [ 0, 100 ]
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Packages to update'
+  ansible.builtin.debug:
+    var: packages_avail.stdout_lines
+    verbosity: 0
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Install updates using dnf'
+  block:
+  - name: 'Install updates'
+    ansible.builtin.dnf:
+      name: "*"
+      state: 'latest'
+      update_cache: true
+    register: packages_updated
+
+  - name: 'Packages updated'
+    ansible.builtin.debug:
+      var: packages_updated.results
+  when: packages_avail.rc == 100
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Reboot after installing updates'
+  ansible.builtin.reboot:
+    msg: 'Rebooting after installing updates.'
+  when: packages_avail.rc == 100
+  tags: [ 'update', 'upgrade' ]
