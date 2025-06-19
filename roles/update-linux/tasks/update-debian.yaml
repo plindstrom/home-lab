@@ -1,0 +1,34 @@
+---
+# Update Debian OS family
+# File: roles/update-linux/tasks/update-debian.yaml
+
+- name: 'Check for updates using apt'
+  ansible.builtin.command:
+    cmd: 'apt list --upgradeable'
+  register: packages_avail
+  failed_when: packages_avail.rc not in [ 0, 100 ]
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Packages to update'
+  ansible.builtin.debug:
+    var: packages_avail.stdout_lines
+    verbosity: 0
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Install updates using apt'
+  ansible.builtin.apt:
+    name: "*"
+    state: 'latest'
+    update_cache: true
+  register: packages_updated
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Packages updated'
+  ansible.builtin.debug:
+    var: packages_updated.results
+  tags: [ 'update', 'upgrade' ]
+
+- name: 'Reboot after installing updates'
+  ansible.builtin.reboot:
+    msg: 'Rebooting after installing updates.'
+  tags: [ 'update', 'upgrade' ]
