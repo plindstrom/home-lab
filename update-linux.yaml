@@ -10,3 +10,10 @@
   become: yes
   roles:
     - update-linux
+
+  handlers:
+  - name: 'Reboot after installing updates'
+    ansible.builtin.reboot:
+      msg: 'Rebooting after installing updates.'
+    listen: 'reboot'
+    tags: [ 'update', 'upgrade' ]

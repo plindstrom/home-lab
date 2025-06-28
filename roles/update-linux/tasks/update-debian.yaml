@@ -21,14 +21,10 @@
     state: 'latest'
     update_cache: true
   register: packages_updated
+  notify: 'reboot'
   tags: [ 'update', 'upgrade' ]
 
 - name: 'Packages updated'
   ansible.builtin.debug:
     var: packages_updated.results
-  tags: [ 'update', 'upgrade' ]
-
-- name: 'Reboot after installing updates'
-  ansible.builtin.reboot:
-    msg: 'Rebooting after installing updates.'
   tags: [ 'update', 'upgrade' ]
