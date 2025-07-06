@@ -8,7 +8,6 @@
     fail_msg: 'The new_version variable needs to be set.'
     success_msg: 'Upgrading to {{ new_version }}.'
     quiet: true
-  tags: [ 'upgrade' ]
 
 - name: 'Download Fedora upgrade packages'
   ansible.builtin.expect:
@@ -18,9 +17,7 @@
       'Is this ok': 'y'
     timeout: 300
   register: packages_download
-  tags: [ 'upgrade' ]
 
 - name: 'Start the upgrade'
   ansible.builtin.command:
     cmd: 'dnf system-upgrade reboot'
-  tags: [ 'upgrade' ]

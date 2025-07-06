@@ -7,17 +7,15 @@
     cmd: 'dnf check-update'
   register: packages_avail
   failed_when: packages_avail.rc not in [ 0, 100 ]
-  tags: [ 'update', 'upgrade' ]
 
 - name: 'Packages to update'
   ansible.builtin.debug:
     var: packages_avail.stdout_lines
     verbosity: 0
-  tags: [ 'update', 'upgrade' ]
 
-- name: 'Install updates using dnf'
+- name: 'Install updates'
   block:
-  - name: 'Install updates'
+  - name: 'Install updates using dnf'
     ansible.builtin.dnf:
       name: "*"
       state: 'latest'
@@ -29,4 +27,3 @@
     ansible.builtin.debug:
       var: packages_updated.results
   when: packages_avail.rc == 100
-  tags: [ 'update', 'upgrade' ]
