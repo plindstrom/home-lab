@@ -1,5 +1,0 @@
----
-# Define update-linux role default variables
-# File: roles/update-linux/defaults/main.yaml
-
-new_version: ""

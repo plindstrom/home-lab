@@ -1,0 +1,10 @@
+---
+# Setup baseline OS configurations
+# File: roles/baseline/tasks/user.yaml
+
+- name: 'Delete template user'
+  ansible.builtin.user:
+    name: 'template'
+    remove: true
+    state: 'absent'
+  tags: [ 'baseline' ]

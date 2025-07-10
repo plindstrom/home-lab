@@ -1,0 +1,16 @@
+---
+# Upgrade Fedora OS distribution
+# File: roles/update/tasks/upgrade-fedora.yaml
+
+- name: 'Download Fedora upgrade packages'
+  ansible.builtin.expect:
+    command: 'dnf system-upgrade download --releasever={{ new_version }}'
+    responses:
+      'Before you continue': 'y'
+      'Is this ok': 'y'
+    timeout: 300
+  register: packages_download
+
+- name: 'Start the upgrade'
+  ansible.builtin.command:
+    cmd: 'dnf system-upgrade reboot'

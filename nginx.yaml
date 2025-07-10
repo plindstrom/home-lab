@@ -1,5 +1,0 @@
----
-# Manage Nginx web servers
-
-- roles:
-    - nginx

@@ -1,0 +1,13 @@
+---
+# Setup baseline OS configurations
+# File: roles/baseline/tasks/main.yaml
+
+- name: 'Include baseline server configuration tasks'
+  ansible.builtin.include_tasks:
+    file: 'server.yaml'
+  tags: [ 'baseline' ]
+
+- name: 'Include baseline user configuration tasks'
+  ansible.builtin.include_tasks:
+    file: 'user.yaml'
+  tags: [ 'baseline' ]

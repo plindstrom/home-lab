@@ -1,0 +1,5 @@
+---
+# Define update role default variables
+# File: roles/update/defaults/main.yaml
+
+new_version: ''

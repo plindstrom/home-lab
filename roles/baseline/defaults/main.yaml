@@ -1,0 +1,5 @@
+---
+# Define baseline role default variables
+# File: roles/baseline/defaults/main.yaml
+
+vm_hostname: ''

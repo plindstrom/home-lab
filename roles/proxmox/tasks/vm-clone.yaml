@@ -1,0 +1,17 @@
+---
+# Clone existing template to create a new VM
+# File: roles/proxmox/tasks/clone.yaml
+
+- name: 'Clone template to create new VM'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    clone: '{{ template_id }}'
+    node: '{{ proxmox_node }}'
+    newid: '{{ vm_id }}'
+    name: '{{ vm_hostname }}'
+    description: 'Created by Ansible on {{ ansible_date_time.iso8601 }}.  Cloned from {{ template_id }}.'
+    timeout: 120
+  tags: [ 'clone' ]
