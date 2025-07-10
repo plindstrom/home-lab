@@ -1,6 +1,6 @@
 ---
-# Update Debian OS family
-# File: roles/update-linux/tasks/update-debian.yaml
+# Update packages for Debian OS family
+# File: roles/update/tasks/update-debian.yaml
 
 - name: 'Check for updates using apt'
   ansible.builtin.command:

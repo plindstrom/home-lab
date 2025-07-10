@@ -1,0 +1,25 @@
+---
+# Clone a Proxmox VM
+# File: vm-clone.yaml
+
+- hosts: localhost
+  pre_tasks:
+    - name: 'Fail if required variables are not defined'
+      ansible.builtin.fail:
+        msg: 'The variable ''{{ required_var }}'' is required.'
+      when: required_var not in hostvars[inventory_hostname]
+      loop:
+        - template_id
+        - vm_id
+        - vm_hostname
+      loop_control:
+        loop_var: required_var
+
+  roles:
+    - role: proxmox
+
+  handlers:
+  - name: 'Reboot after installing updates'
+    ansible.builtin.reboot:
+      msg: 'Rebooting after installing updates.'
+    listen: 'reboot'

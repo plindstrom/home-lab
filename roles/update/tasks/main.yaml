@@ -1,6 +1,6 @@
 ---
-# Update and/or Upgrade Linux
-# File: roles/update-linux/tasks/main.yaml
+# Update and/or Upgrade Linux or Windows
+# File: roles/update/tasks/main.yaml
 
 - name: 'Include update tasks for {{ ansible_os_family }} OS family'
   ansible.builtin.include_tasks:

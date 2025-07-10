@@ -1,0 +1,10 @@
+---
+# Setup baseline OS configurations
+# File: roles/baseline/tasks/server.yaml
+
+- name: 'Set the hostname to {{ vm_hostname }}'
+  ansible.builtin.hostname:
+    name: '{{ vm_hostname }}'
+    use: 'systemd'
+  when: vm_hostname != ''
+  tags: [ 'baseline' ]

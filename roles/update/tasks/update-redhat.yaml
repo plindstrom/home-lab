@@ -1,6 +1,6 @@
 ---
-# Update RedHat OS family
-# File: roles/update-linux/tasks/update-redhat.yaml
+# Update packages for RedHat OS family
+# File: roles/update/tasks/update-redhat.yaml
 
 - name: 'Check for updates using dnf'
   ansible.builtin.command:

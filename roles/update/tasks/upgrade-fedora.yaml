@@ -1,13 +1,6 @@
 ---
-# Upgrade Fedora distribution
-# File: roles/update-linux/tasks/upgrade-fedora.yaml
-
-- name: 'Verify new_version is defined'
-  ansible.builtin.assert:
-    that: new_version != ''
-    fail_msg: 'The new_version variable needs to be set.'
-    success_msg: 'Upgrading to {{ new_version }}.'
-    quiet: true
+# Upgrade Fedora OS distribution
+# File: roles/update/tasks/upgrade-fedora.yaml
 
 - name: 'Download Fedora upgrade packages'
   ansible.builtin.expect:

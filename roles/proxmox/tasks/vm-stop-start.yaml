@@ -1,0 +1,39 @@
+---
+# Stop and/or start a VM
+# File: roles/proxmox/tasks/stop-start.yaml
+
+- name: 'Get VM status'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'status'
+  register: vm_results
+  tags: [ 'stop', 'start', 'clone' ]
+
+- name: 'Stop VM'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'stopped'
+  when: vm_results.status == 'started'
+  tags: [ 'stop' ]
+
+- name: 'Start VM'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'started'
+  when: vm_results.status == 'stopped'
+  tags: [ 'start', 'clone' ]
