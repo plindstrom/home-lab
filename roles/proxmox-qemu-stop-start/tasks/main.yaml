@@ -22,4 +22,6 @@
     name: '{{ vm_hostname }}'
     node: '{{ proxmox_node }}'
     state: '{{ action }}'
-  when: vm_results.status != action
+  when:
+    - action != 'status'
+    - vm_results.status != action
