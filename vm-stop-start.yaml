@@ -4,7 +4,7 @@
 
 - hosts: localhost
   pre_tasks:
-    - name: 'Fail if required variables are not defined'
+    - name: 'Fail if required variables are undefined'
       ansible.builtin.fail:
         msg: 'The variable ''{{ required_var }}'' is required.'
       when: required_var not in hostvars[inventory_hostname]
@@ -13,9 +13,10 @@
       loop_control:
         loop_var: required_var
 
-    - name: 'Print supported vm_action variable values if one is not supplied'
+    - name: 'Warn if vm_action variable is undefined'
       ansible.builtin.debug:
-        msg: 'Valid variable vm_action values: started, stopped, restarted, paused, hibernated.'
+        msg: 'Valid variable ''vm_action'' values: started, stopped, restarted, paused, or hibernated.  If none provided, status will be used.'
+        verbosity: 1
       when: vm_action not in [ 'started', 'stopped', 'restarted', 'paused', 'hibernated' ]
 
   roles:
