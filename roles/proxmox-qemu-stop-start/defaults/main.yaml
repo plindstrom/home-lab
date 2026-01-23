@@ -2,5 +2,5 @@
 # Define proxmox-qemu-stop-start role default variables
 # File: roles/proxmox-qemu-stop-start/defaults/main.yaml
 
-action: 'status'
+vm_action: 'status'
 vm_hostname: ''

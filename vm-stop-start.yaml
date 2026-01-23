@@ -13,10 +13,10 @@
       loop_control:
         loop_var: required_var
 
-    - name: 'Print supported action variable values if one is not supplied'
+    - name: 'Print supported vm_action variable values if one is not supplied'
       ansible.builtin.debug:
-        msg: 'The variable action must be one of the following values: status, started, stopped, restarted, paused, hibernated.'
-      when: action not in [ 'status', 'started', 'stopped', 'restarted', 'paused', 'hibernated' ]
+        msg: 'Valid variable vm_action values: started, stopped, restarted, paused, hibernated.'
+      when: vm_action not in [ 'started', 'stopped', 'restarted', 'paused', 'hibernated' ]
 
   roles:
     - role: proxmox-qemu-stop-start
