@@ -3,8 +3,29 @@ automation:
     ansible01:
       ansible_host: localhost
 
+kubernetes:
+  hosts:
+    k8s01:
+      ansible_host: 192.168.1.100
+      ansible_ssh_private_key_file: ~/.ssh/k8s01
+
+vpn:
+  hosts:
+    vpn01:
+      ansible_host: 192.168.1.101
+      ansible_user: pl
+
 web:
   hosts:
     nginx01:
-      ansible_host: 192.168.10.101
+      ansible_host: 192.168.1.102
       ansible_ssh_private_key_file: ~/.ssh/nginx01
+    nginx02:
+      ansible_host: 192.168.1.103
+      ansible_ssh_private_key_file: ~/.ssh/nginx02
+
+workstation:
+  hosts:
+    ws01:
+      ansible_host: 192.168.1.104
+      ansible_ssh_private_key_file: ~/.ssh/ws01

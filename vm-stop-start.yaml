@@ -1,6 +1,6 @@
 ---
-# Clone a Proxmox VM
-# File: vm-clone.yaml
+# Stop and/or start a Proxmox VM
+# File: vm-stop-start.yaml
 
 - hosts: localhost
   pre_tasks:
@@ -9,12 +9,15 @@
         msg: 'The variable ''{{ required_var }}'' is required.'
       when: required_var not in hostvars[inventory_hostname]
       loop:
-        - template_id
-        - vm_id
+        - action
         - vm_hostname
       loop_control:
         loop_var: required_var
 
+    - name: 'Fail if action variable is not a supported value'
+      ansible.builtin.fail:
+        msg: 'The variable action must be one of the following values: started, stopped, restarted, paused, hibernated.'
+      when: action not in [ 'started', 'stopped', 'restarted', 'paused', 'hibernated' ]
+
   roles:
-    - role: proxmox-qemu-clone
     - role: proxmox-qemu-stop-start

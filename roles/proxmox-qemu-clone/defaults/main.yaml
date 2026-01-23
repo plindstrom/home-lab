@@ -1,0 +1,5 @@
+---
+# Define proxmox-qemu-clone role default variables
+# File: roles/proxmox-qemu-clone/defaults/main.yaml
+
+vm_hostname: ''

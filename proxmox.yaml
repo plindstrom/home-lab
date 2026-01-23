@@ -1,7 +1,0 @@
----
-# Manage Proxmox
-# File: proxmox.yaml
-
-- hosts: localhost
-  roles:
-    - role: proxmox

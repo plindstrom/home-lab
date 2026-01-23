@@ -1,6 +1,8 @@
 ---
-# Build and manage VMs using the Proxmox API
+# Variables for the automation group
+# File: group_vars/automation.yaml
 
+# Proxmox API
 proxmox_api_host: 'your-host'
 proxmox_api_url: 'https://{{ proxmox_api_host }}:8006'
 proxmox_api_user: 'your-user@pve'

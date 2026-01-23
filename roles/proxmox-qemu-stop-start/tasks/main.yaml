@@ -1,0 +1,25 @@
+---
+# Stop, start or restart a VM using the Proxmox API
+# File: roles/proxmox-qemu-stop-start/tasks/main.yaml
+
+- name: 'Get VM status'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: 'current'
+  register: vm_results
+
+- name: '{{ action }} VM'
+  community.general.proxmox_kvm:
+    api_host: '{{ proxmox_api_host }}'
+    api_user: '{{ proxmox_api_user }}'
+    api_token_id: '{{ proxmox_api_id }}'
+    api_token_secret: '{{ proxmox_api_secret }}'
+    name: '{{ vm_hostname }}'
+    node: '{{ proxmox_node }}'
+    state: '{{ action }}'
+  when: vm_results.status != action

@@ -1,6 +1,6 @@
 ---
-# Clone existing template to create a new VM
-# File: roles/proxmox/tasks/clone.yaml
+# Clone a VM using the Proxmox API
+# File: roles/proxmox-qemu-clone/tasks/main.yaml
 
 - name: 'Clone template to create new VM'
   community.general.proxmox_kvm:

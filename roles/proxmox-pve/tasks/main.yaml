@@ -1,0 +1,8 @@
+---
+# Manage Proxmox VE server
+# File: roles/proxmox-pve/tasks/main.yaml
+
+- name: 'Include Proxmox cluster information tasks'
+  ansible.builtin.include_tasks:
+    file: 'pve-info.yaml'
+  tags: [ 'pve_version' ]
