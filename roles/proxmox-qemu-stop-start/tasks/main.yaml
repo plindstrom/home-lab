@@ -2,7 +2,7 @@
 # Stop, start or restart a VM using the Proxmox API
 # File: roles/proxmox-qemu-stop-start/tasks/main.yaml
 
-- name: 'Get current status of VM {{ vm_hostname }}'
+- name: 'Get current state of VM {{ vm_hostname }}'
   community.proxmox.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
@@ -13,12 +13,12 @@
     state: 'current'
   register: vm_results
 
-- name: 'Print current status of VM {{ vm_hostname }}'
+- name: 'Print current state of VM {{ vm_hostname }}'
   ansible.builtin.debug:
     var: vm_results.status
     verbosity: 0
 
-- name: 'Set state for VM {{ vm_hostname }} to {{ vm_action | upper }}'
+- name: 'Set state for VM {{ vm_hostname }} to {{ vm_state | upper }}'
   community.proxmox.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
@@ -26,7 +26,7 @@
     api_token_secret: '{{ proxmox_api_secret }}'
     name: '{{ vm_hostname }}'
     node: '{{ proxmox_node }}'
-    state: '{{ vm_action }}'
+    state: '{{ vm_state }}'
   when:
-    - vm_action != 'status'
-    - vm_results.status != vm_action
+    - vm_state != 'status'
+    - vm_results.status != vm_state
