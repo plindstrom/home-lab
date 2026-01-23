@@ -3,7 +3,7 @@
 # File: roles/proxmox-qemu-stop-start/tasks/main.yaml
 
 - name: 'Get VM status'
-  community.general.proxmox_kvm:
+  community.proxmox.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
     api_token_id: '{{ proxmox_api_id }}'
@@ -14,7 +14,7 @@
   register: vm_results
 
 - name: '{{ vm_action }} VM'
-  community.general.proxmox_kvm:
+  community.proxmox.proxmox_kvm:
     api_host: '{{ proxmox_api_host }}'
     api_user: '{{ proxmox_api_user }}'
     api_token_id: '{{ proxmox_api_id }}'
