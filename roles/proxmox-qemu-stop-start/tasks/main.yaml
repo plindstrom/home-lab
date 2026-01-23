@@ -29,4 +29,4 @@
     state: '{{ vm_action }}'
   when:
     - vm_action != 'status'
-    - vm_results.status != action
+    - vm_results.status != vm_action
