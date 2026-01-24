@@ -15,7 +15,7 @@
 
     - name: 'Fail if vm_state variable is invalid'
       ansible.builtin.fail:
-        msg: 'Valid ''vm_action'' values: status, started, stopped, restarted, paused, or hibernated.'
+        msg: 'Valid ''vm_state'' values: status, started, stopped, restarted, paused, or hibernated.'
       when: vm_state not in [ 'status', 'started', 'stopped', 'restarted', 'paused', 'hibernated' ]
 
   roles:
