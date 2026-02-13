@@ -8,7 +8,7 @@
     api_user: '{{ proxmox_api_user }}'
     api_token_id: '{{ proxmox_api_id }}'
     api_token_secret: '{{ proxmox_api_secret }}'
-    clone: '{{ template_id }}'
+    vmid: '{{ template_id }}'
     full: true
     node: '{{ proxmox_node }}'
     newid: '{{ vm_id }}'
