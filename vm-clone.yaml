@@ -18,3 +18,5 @@
   roles:
     - role: proxmox-qemu-clone
     - role: proxmox-qemu-stop-start
+      vars:
+        state: 'started'

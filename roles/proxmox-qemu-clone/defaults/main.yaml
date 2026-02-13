@@ -3,3 +3,5 @@
 # File: roles/proxmox-qemu-clone/defaults/main.yaml
 
 vm_hostname: ''
+template_id: ''
+vm_id: ''
