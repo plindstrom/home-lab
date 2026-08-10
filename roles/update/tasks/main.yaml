@@ -11,4 +11,4 @@
     file: 'upgrade-fedora.yaml'
   when:
     - ansible_distribution == 'Fedora'
-    - new_version != ''
+    - cli_new_version != ''

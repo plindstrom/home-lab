@@ -2,7 +2,8 @@
 # Update and/or Upgrade Linux or Windows
 # File: update.yaml
 
-- hosts: all
+- name: 'Update OS packages for Linux or Windows'
+  hosts: all
   become: yes
 
   roles:
@@ -13,3 +14,67 @@
     ansible.builtin.reboot:
       msg: 'Rebooting after installing updates.'
     listen: 'reboot'
+
+
+# TASK [Gathering Facts] *************************************************************************************************
+# [WARNING]: Module invocation had junk after the JSON data:
+# ok: [node2]
+# [WARNING]: Module invocation had junk after the JSON data:
+# ok: [node1]
+# [WARNING]: Module invocation had junk after the JSON data:
+# ok: [node3]
+# [WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
+# [DEPRECATION WARNING]: INJECT_FACTS_AS_VARS default to `True` is deprecated, top-level facts will not be auto injected after the change. This feature will be removed from ansible-core version 2.24.
+# Origin: /home/ansible/playbooks/home-lab/roles/update/tasks/main.yaml:5:9
+#
+# 3 # File: roles/update/tasks/main.yaml
+# 4
+# 5 - name: 'Include update tasks for {{ ansible_os_family }} OS family'
+#           ^ column 9
+#
+# Use `ansible_facts["fact_name"]` (no `ansible_` prefix) instead.
+#
+#
+# TASK [update : Include update tasks for RedHat OS family] **************************************************************
+# included: /home/ansible/playbooks/home-lab/roles/update/tasks/update-redhat.yaml for node3, node1, node2
+#
+# TASK [update : Check for updates using dnf] ****************************************************************************
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node2]
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node3]
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node1]
+#
+#
+#
+#
+#
+# TASK [update : Include upgrade tasks for Fedora distribution] **********************************************************
+# [DEPRECATION WARNING]: INJECT_FACTS_AS_VARS default to `True` is deprecated, top-level facts will not be auto injected after the change. This feature will be removed from ansible-core version 2.24.
+# Origin: /home/ansible/playbooks/home-lab/roles/update/tasks/main.yaml:13:7
+#
+# 11     file: 'upgrade-fedora.yaml'
+# 12   when:
+# 13     - ansible_distribution == 'Fedora'
+#          ^ column 7
+#
+# Use `ansible_facts["fact_name"]` (no `ansible_` prefix) instead.
+#
+# skipping: [node1]
+# skipping: [node2]
+# skipping: [node3]
+#
+#
+#
+#
+# RUNNING HANDLER [Reboot after installing updates] **********************************************************************
+# [WARNING]: Module invocation had junk after the JSON data:
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node2]
+# [WARNING]: Module invocation had junk after the JSON data:
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node3]
+# [WARNING]: Module invocation had junk after the JSON data:
+# [WARNING]: Module invocation had junk after the JSON data:
+# changed: [node1]
