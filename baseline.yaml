@@ -1,8 +1,0 @@
----
-# Setup baseline OS configurations
-# File: baseline.yaml
-
-- hosts: all
-  become: yes
-  roles:
-    role: baseline
