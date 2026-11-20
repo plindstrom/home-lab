@@ -2,13 +2,13 @@
 # Update and/or Upgrade Linux or Windows
 # File: roles/update/tasks/main.yaml
 
-- name: 'Include update tasks for {{ ansible_os_family }} OS family'
+- name: "Include update tasks for {{ ansible_facts['os_family'] }} OS family"
   ansible.builtin.include_tasks:
-    file: 'update-{{ ansible_os_family | lower }}.yaml'
+    file: "update-{{ ansible_facts['os_family'] | lower }}.yaml"
 
-- name: 'Include upgrade tasks for Fedora distribution'
+- name: "Include upgrade tasks for Fedora distribution"
   ansible.builtin.include_tasks:
-    file: 'upgrade-fedora.yaml'
+    file: "upgrade-fedora.yaml"
   when:
-    - ansible_distribution == 'Fedora'
-    - cli_new_version != ''
+    - ansible_facts['distribution'] == "Fedora"
+    - cli_new_version != ""
