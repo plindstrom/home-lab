@@ -1,4 +1,2 @@
 # Environment specific vars
-inventory
-roles/proxmox/vars/main.yaml
-roles/nginx/vars/main.yaml
+inventory.yaml

@@ -1,14 +1,18 @@
 ---
-# Update and/or Upgrade Linux or Windows
+# Update and/or Upgrade Linux
 # File: update.yaml
 
-- hosts: all
+- name: "Update OS packages for Linux"
+  hosts: all
   become: yes
+  vars:
+    ansible_ssh_pipelining: true
+
   roles:
-    role: update
+    - role: update
 
   handlers:
-  - name: 'Reboot after installing updates'
+  - name: "Reboot after installing updates"
     ansible.builtin.reboot:
-      msg: 'Rebooting after installing updates.'
-    listen: 'reboot'
+      msg: "Rebooting after installing updates."
+    listen: "reboot"
